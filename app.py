@@ -19,7 +19,7 @@ st.title('A Simple Streamlit Web App')
 # Definimos las opciones de las otras listas desplegables
 generos = ['Masculino', 'Femenino']
 edades = [i for i in range(0, 101)]
-especialidades = ['Ortodoncia', 'Terapia Ocupacional', 'Fisioterapia', 'Radiología']
+especialidades = list(incumpl_dicc.keys())
 tipos_afiliacion = ['Gold', 'Silver', 'Convenio']
 horas = [f'{i}:00' for i in range(6, 23)] # Definimos horas disponibles
 
@@ -110,15 +110,16 @@ df['tasa_incumpl'] = scaler_minmax.transform(df['tasa_incumpl'].values.reshape(-
 
 # Agregue un botón "Predecir" a la interfaz de usuario
 if st.button('Predecir'):
-    # Ejecute la predicción
-    prediccion = knn.predict(df)[0]
-    # Mostrar la predicción en la interfaz de usuario
-    if df['dia_semana'][0] <= 1.1:  # Para que no entre si el día es domingo (día 1.2 sg la normalización)
-        if prediccion == 0:
-            st.write('Se predice que el paciente NO asistirá a la cita.')
-        elif prediccion == 1:
-            st.write('Se predice que el paciente SI asistirá a la cita.')
-    else:
-        st.write('Domingo sin atención a público.')
-
-
+    try:
+        # Ejecute la predicción
+        prediccion = knn.predict(df)[0]
+        # Mostrar la predicción en la interfaz de usuario
+        if df['dia_semana'][0] <= 1.1:  # Para que no entre si el día es domingo (día 1.2 sg la normalización)
+            if prediccion == 0:
+                st.write('Se predice que el paciente NO asistirá a la cita.')
+            elif prediccion == 1:
+                st.write('Se predice que el paciente SI asistirá a la cita.')
+        else:
+            st.write('Domingo sin atención a público.')
+    except:
+        st.write('Sin datos para este caso.')
