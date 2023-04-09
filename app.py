@@ -14,7 +14,7 @@ with open('incumpl_dicc.pkl', 'rb') as archivo:
 
 
 # Título WebApp
-st.title('A Simple Streamlit Web App')
+st.title('Predictor de Asistencia de Pacientes a Citas Médicas')
 
 # Definimos las opciones de las otras listas desplegables
 generos = ['Masculino', 'Femenino']
@@ -59,7 +59,7 @@ df['tipo_afiliacion'] = list(map(dicc_aux.get, df.tipo_afiliacion))
 df['dia_semana'] = pd.to_datetime(df['dia_semana']).dt.weekday
 
 # Cargar el objeto ajustado
-with open('C:/Harold Data/Projects/2023-03-20 First Webapp/scaler_minmax_dow.pkl', 'rb') as f:
+with open('scaler_minmax_dow.pkl', 'rb') as f:
     scaler_minmax = pickle.load(f)
 
 # Utilizar el objeto cargado para transformar los datos
@@ -68,7 +68,7 @@ df['dia_semana'] = scaler_minmax.transform(df['dia_semana'].values.reshape(-1, 1
 
 # Decenas (Edad) ================================================
 # Cargar el objeto ajustado
-with open('C:/Harold Data/Projects/2023-03-20 First Webapp/scaler_std_decenas.pkl', 'rb') as f:
+with open('scaler_std_decenas.pkl', 'rb') as f:
     scaler_std = pickle.load(f)
 
 df['decenas'] = scaler_std.transform(df['decenas'].values.reshape(-1, 1))
@@ -91,7 +91,7 @@ for i in df.bloque_hora:
 df['bloque_hora'] = bloque_hora
 
 # Cargar el objeto ajustado
-with open('C:/Harold Data/Projects/2023-03-20 First Webapp/scaler_minmax_bloque_hora.pkl', 'rb') as f:
+with open('scaler_minmax_bloque_hora.pkl', 'rb') as f:
     scaler_minmax = pickle.load(f)
 
 df['bloque_hora'] = scaler_minmax.transform(df['bloque_hora'].values.reshape(-1, 1))
@@ -102,7 +102,7 @@ df['tasa_incumpl'] = df['tasa_incumpl'].str.upper()
 df['tasa_incumpl'] = list(map(incumpl_dicc.get, df.tasa_incumpl))  #Reemplaza la especialidad por la tasa de inclump.
 
 # Cargar el objeto ajustado
-with open('C:/Harold Data/Projects/2023-03-20 First Webapp/scaler_minmax_tasa_incumpl.pkl', 'rb') as f:
+with open('scaler_minmax_tasa_incumpl.pkl', 'rb') as f:
     scaler_minmax = pickle.load(f)
 
 df['tasa_incumpl'] = scaler_minmax.transform(df['tasa_incumpl'].values.reshape(-1, 1))
