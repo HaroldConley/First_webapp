@@ -14,7 +14,10 @@ with open('incumpl_dicc.pkl', 'rb') as archivo:
 
 
 # Título WebApp
-st.title('Predictor de Asistencia de Pacientes a Citas Médicas')
+st.title('Predictor de Asistencia a Citas Médicas')
+
+# Subtítulo
+st.subheader("Ingresa los datos del paciente y la aplicación indicará si el paciente asistirá o no a la cita agendada.")
 
 # Definimos las opciones de las otras listas desplegables
 generos = ['Masculino', 'Femenino']
@@ -27,10 +30,10 @@ horas = [f'{i}:00' for i in range(6, 23)] # Definimos horas disponibles
 df = pd.DataFrame(columns=['genero', 'tipo_afiliacion', 'dia_semana', 'decenas', 'tasa_incumpl', 'bloque_hora'])
 
 # Creamos las listas desplegables en la interfaz
-genero_seleccionado = st.selectbox('Selecciona tu género:', generos)
-edad_seleccionada = st.selectbox('Selecciona tu edad:', edades)
-especialidad_seleccionada = st.selectbox('Selecciona tu especialidad:', especialidades)
-tipo_afiliacion_seleccionado = st.selectbox('Selecciona tu tipo de afiliación:', tipos_afiliacion)
+genero_seleccionado = st.selectbox('Género del paciente:', generos)
+edad_seleccionada = st.selectbox('Edad del paciente:', edades)
+especialidad_seleccionada = st.selectbox('Selecciona especialidad:', especialidades)
+tipo_afiliacion_seleccionado = st.selectbox('Selecciona tipo de afiliación:', tipos_afiliacion)
 fecha_seleccionada = st.date_input('Selecciona la fecha:', value=datetime.now())
 hora_seleccionada = st.selectbox('Selecciona la hora:', horas)
 
